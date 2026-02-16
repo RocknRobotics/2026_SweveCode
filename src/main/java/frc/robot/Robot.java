@@ -6,13 +6,15 @@ package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
 
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
-
+     public PS4Controller ps4=new PS4Controller(1);
+     public shooter shoot=new shooter();
     private final RobotContainer m_robotContainer;
 
     /* log and replay timestamp and joystick data */
@@ -62,7 +64,41 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() 
+    {
+      if(ps4.getPSButtonPressed())
+    {
+     shoot.shoot(0);
+    }
+    if(ps4.getSquareButtonPressed())
+    {
+     shoot.shoot(.75);
+    }
+    if(ps4.getSquareButtonPressed())
+    {
+     shoot.shoot(.5);
+    }
+    if(ps4.getCircleButtonPressed())
+    {
+     shoot.shoot(1);
+    }
+    if(ps4.getCrossButtonPressed())
+    {
+     shoot.shoot(.25);
+    }
+    if(ps4.getL1ButtonPressed())
+    {
+     shoot.increase();
+    }
+    if(ps4.getR1ButtonPressed())
+    {
+     shoot.decrease();
+    }
+    if(ps4.getL2Button())
+    {
+        shoot.pickup(100);
+    }
+    }
 
     @Override
     public void teleopExit() {}
